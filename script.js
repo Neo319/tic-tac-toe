@@ -30,19 +30,46 @@ const gameBoard = (function createBoard ()  {
         
 
         //example move
-        playCell(0, 0, 'X');
+        // playCell(0, 0, 'X');
 
 
         return {
-            
             playCell, 
             getCellValue,
             getBoard, 
         };
 })();
 
-const players = (function createPlayers () {
-    const P1 = '?'
+const gameController = (function createGame () {
+
+    const P1 = 'X';
+    const CPU = 'O';
+
+    const turn = (player) => {
+        console.log(`${player}'s turn`);
+        console.log(gameBoard.getBoard());
+
+        let move = prompt("enter move (e.g. '1, 1'), or q to quit:");
+        let row = move.charAt(0);
+        let col = move.charAt(3);
+
+        
+
+        
+    };
+
+    const startGame = () => {
+        turn(P1);
+    };
+
+    console.log("enter 'gameController.startGame()' to begin!");
+
+
+
+    return {
+        turn,
+        startGame,
+    }
 })();
 
 
