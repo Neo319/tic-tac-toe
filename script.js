@@ -53,7 +53,7 @@ const gameController = (function createGame () {
         let row = move.charAt(0);
         let col = move.charAt(3);
 
-        
+        gameBoard.playCell(row, col, 'X');
 
         
     };
