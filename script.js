@@ -49,7 +49,6 @@ const gameController = (function createGame () {
 
     const playerTurn = () => {
         console.log(`Player's turn`);
-        console.log(gameBoard.getBoard());
 
         let move = prompt("enter move (e.g. '1, 1'), or q to quit:");
         let row = move.charAt(0);
