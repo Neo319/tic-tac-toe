@@ -67,7 +67,7 @@ const gameController = (function createGame () {
         const cpuChoice = (() => {
             
         
-            while(true) {
+            for (i = 0; i < 100; i++) {
 
                 let row = Math.floor(Math.random() * 3);
                 let col = Math.floor(Math.random() * 3);
