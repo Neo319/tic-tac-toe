@@ -29,6 +29,7 @@ const gameBoard = (function createBoard ()  {
         console.log("board set!");
 
         return {
+            createBoard,
             board,
             playCell, 
             getCellValue,
@@ -76,41 +77,49 @@ const gameController = (function createGame () {
     const checkWin = () => {
         let board = gameBoard.board;
         
-        //Check rows
-        for (i = 0; i < 3; i++) {
-            if (board[0][i] === board[1][i] === board[2][i] && board[0][i] != "empty") {return board[0][1];}
-        }
-
         //Check columns
         for (i = 0; i < 3; i++) {
-            if (board[i][0] === board[i][1] === board[i][2] && board[i][0] != "empty") {return board[i][0];}
+            if (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[0][i] != "empty") {return board[0][1];}
         }
-
+        console.log("no columns")
+        //Check rows
+        for (i = 0; i < 3; i++) {
+            if (board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][0] != "empty") {return board[i][0];}
+        }
+        console.log("no rows")
         //Check diagonals
-        if (board[0][0] === board[1][1] === board[2][2] && board[0][0] != "empty") {return board[0][0];}
-        else if (board[0][2] === board[1][1] === board[2][0] && board [0][2] != "empty") {return board[0][2];}
+        if      (board[0][0] === board[1][1] && board [1][1] === board[2][2] && board[0][0] != "empty") {return board[0][0];}
+        else if (board[0][2] === board[1][1] && board[1][1] === board[2][0] && board [0][2] != "empty") {return board[0][2];}
+    }
 
-        else return false;
-
-       
-
-
+    const reset = () => {
+        let board = gameBoard.board;
+        board[0] = ["empty", "empty", "empty"]
+        board[1] = ["empty", "empty", "empty"]
+        board[2] = ["empty", "empty", "empty"]
     }
 
     const startGame = () => {
 
         for ( ; ; ) {
+            let winner = '';
             playerTurn();
-            if (checkWin()) {console.log(`WINNER! ${checkWin()}`)}
+            if (checkWin()) {
+                winner = checkWin()
+                console.log(`WINNER! ${winner}`)}
+                if (winner) {break;}
 
             cpuTurn();
             console.log(gameBoard.board[0]);
             console.log(gameBoard.board[1]);
             console.log(gameBoard.board[2]);
-            if (checkWin()) {console.log(`WINNER! ${checkWin()}`)}
-
-            
+            if (checkWin()) {
+                winner = checkWin();
+                console.log(`WINNER! ${winner}`)}
+                if (winner) {break;}
         }
+        reset();
+        console.log("game complete -- enter 'gameController.startGame()' to begin!")
     };
 
     console.log("enter 'gameController.startGame()' to begin!");
