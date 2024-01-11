@@ -90,9 +90,13 @@ const gameController = (function createGame () {
         else if (board[0][2] === board[1][1] && board[1][1] === board[2][0] && board [0][2] != "empty") {return board[0][2];}
 
         // Check draws
-        for (i = 0; i < 3; i++) {
-            if (board[i].includes("empty")) {return "DRAW";}
-        }
+            if (
+                !(board[0].includes("empty")) &&
+                !(board[1].includes("empty")) &&
+                !(board[2].includes("empty"))
+                )
+             {return "DRAW";}
+        
 
     }
 
@@ -108,6 +112,11 @@ const gameController = (function createGame () {
         for ( ; ; ) {
             let winner = '';
             playerTurn();
+            if (checkWin() === "DRAW") {
+                console.log("DRAW");
+                reset();
+                break;
+            }
             if (checkWin()) {
                 winner = checkWin()
                 console.log(`WINNER! ${winner}`)}
@@ -117,6 +126,12 @@ const gameController = (function createGame () {
             console.log(gameBoard.board[0]);
             console.log(gameBoard.board[1]);
             console.log(gameBoard.board[2]);
+            if (checkWin() === "DRAW") {
+                console.log("DRAW");
+                reset();
+                break;
+            }
+            
             if (checkWin()) {
                 winner = checkWin();
                 console.log(`WINNER! ${winner}`)}
