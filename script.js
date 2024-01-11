@@ -43,13 +43,31 @@ const gameController = (function createGame () {
     const CPU = 'O';
 
     const playerTurn = () => {
-        console.log(`Player's turn`);
 
-        let move = prompt("enter move (e.g. '1, 1'), or q to quit:");
-        let row = move.charAt(0);
-        let col = move.charAt(3);
+        for ( ; ; ) {
+            console.log(`Player's turn`);
 
-        gameBoard.playCell(row, col, 'X');
+            let move = prompt("enter move (e.g. '1, 1'), or q to quit:");
+            let row = move.charAt(0);
+            let col = move.charAt(3);
+
+            if (move === "q") {
+                return "quit";
+            }
+
+            if (row >= 0 && row <3 && col >= 0 && col < 3) {
+                if (gameBoard.getCellValue(row, col) === "empty") {
+                    gameBoard.playCell(row, col, 'X');
+                    return move; 
+                } else {
+                    console.log("occupied");
+                } 
+            } else {
+                console.log("invalid move");
+            }
+            
+        }
+
 
     };
 
@@ -111,10 +129,14 @@ const gameController = (function createGame () {
 
         for ( ; ; ) {
             let winner = '';
-            playerTurn();
+
+            let move = playerTurn();
+            if (move === "quit") {
+                console.log("quit");
+                break;}
+
             if (checkWin() === "DRAW") {
                 console.log("DRAW");
-                reset();
                 break;
             }
             if (checkWin()) {
