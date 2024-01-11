@@ -81,15 +81,19 @@ const gameController = (function createGame () {
         for (i = 0; i < 3; i++) {
             if (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[0][i] != "empty") {return board[0][1];}
         }
-        console.log("no columns")
         //Check rows
         for (i = 0; i < 3; i++) {
             if (board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][0] != "empty") {return board[i][0];}
         }
-        console.log("no rows")
         //Check diagonals
         if      (board[0][0] === board[1][1] && board [1][1] === board[2][2] && board[0][0] != "empty") {return board[0][0];}
         else if (board[0][2] === board[1][1] && board[1][1] === board[2][0] && board [0][2] != "empty") {return board[0][2];}
+
+        // Check draws
+        for (i = 0; i < 3; i++) {
+            if (board[i].includes("empty")) {return "DRAW";}
+        }
+
     }
 
     const reset = () => {
