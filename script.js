@@ -28,12 +28,6 @@ const gameBoard = (function createBoard ()  {
 
         console.log("board set!");
 
-        
-
-        //example move
-        // playCell(0, 0, 'X');
-
-
         return {
             board,
             playCell, 
@@ -62,10 +56,8 @@ const gameController = (function createGame () {
         console.log ("CPU's turn");
 
         //generate random number for row & col, repeat until valid
-
         const cpuChoice = (() => {
-            
-        
+
             for (i = 0; i < 100; i++) {
 
                 let row = Math.floor(Math.random() * 3);
@@ -74,8 +66,7 @@ const gameController = (function createGame () {
 
                 if (gameBoard.getCellValue(row, col) === 'empty') {
                     gameBoard.playCell(row, col, 'O');
-                    return row + " ," + col; // move made by cpu
-                    
+                    return row + " ," + col; // move made by cpu        
                 };
             };
         })();
@@ -83,22 +74,7 @@ const gameController = (function createGame () {
     };
 
     const checkWin = () => {
-        // console.log(gameBoard.board[0][0])
         let board = gameBoard.board;
-
-        // if ((board[0][0] === "X") && (board[0][1] === "X") && (board[0][2] === "X" )) winner = "X" 
-        // else if ((board[0][0] === "O") && (board[0][1] === "O") && (board[0][2] === "O" )) winner = "O"
-        
-        // else if ((board[1][0] === "X") && (board[1][1] === "X") && (board[1][2] === "X" )) winner = "X" 
-        // else if ((board[1][0] === "O") && (board[1][1] === "O") && (board[1][2] === "O" )) winner = "O"
-
-        // else if ((board[2][0] === "X") && (board[2][1] === "X") && (board[2][2] === "X" )) winner = "X" 
-        // else if ((board[2][0] === "O") && (board[2][1] === "O") && (board[2][2] === "O" )) winner = "O"
-
-        // else if ((board[0][0] === "X") && (board[1][0] === "X") && (board[2][0] === "X" )) winner = "X" 
-        // else if ((board[0][0] === "O") && (board[1][0] === "O") && (board[2][0] === "O" )) winner = "O"
-
-        
         
         //Check rows
         for (i = 0; i < 3; i++) {
@@ -123,14 +99,8 @@ const gameController = (function createGame () {
 
     const startGame = () => {
 
-        // playerTurn();
-        // console.log(gameBoard.board);
-        // cpuTurn();
-        // console.log(gameBoard.board);
-
         for ( ; ; ) {
             playerTurn();
-            // console.log(gameBoard.board);
             if (checkWin()) {console.log(`WINNER! ${checkWin()}`)}
 
             cpuTurn();
