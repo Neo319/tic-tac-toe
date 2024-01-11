@@ -27,6 +27,7 @@ const gameBoard = (function createBoard ()  {
         }
 
         console.log("board set!");
+
         
 
         //example move
@@ -34,6 +35,7 @@ const gameBoard = (function createBoard ()  {
 
 
         return {
+            board,
             playCell, 
             getCellValue,
             getBoard, 
@@ -45,8 +47,8 @@ const gameController = (function createGame () {
     const P1 = 'X';
     const CPU = 'O';
 
-    const turn = (player) => {
-        console.log(`${player}'s turn`);
+    const playerTurn = () => {
+        console.log(`Player's turn`);
         console.log(gameBoard.getBoard());
 
         let move = prompt("enter move (e.g. '1, 1'), or q to quit:");
@@ -55,11 +57,38 @@ const gameController = (function createGame () {
 
         gameBoard.playCell(row, col, 'X');
 
+    };
+
+    const cpuTurn = () => {
+        console.log ("CPU's turn");
+
+        //generate random number for row & col, repeat until valid
+
+        const cpuChoice = (() => {
+            
         
+            while(true) {
+
+                let row = Math.floor(Math.random() * 3);
+                let col = Math.floor(Math.random() * 3);
+                console.log (`attempt ${row}, ${col}`);
+
+                if (gameBoard.getCellValue(row, col) === 'empty') {
+                    gameBoard.playCell(row, col, 'O');
+                    return row + " ," + col; // move made by cpu
+                    
+                };
+            };
+        })();
+        return {cpuChoice}; 
     };
 
     const startGame = () => {
-        turn(P1);
+
+        playerTurn();
+        console.log(gameBoard.board);
+        cpuTurn();
+        console.log(gameBoard.board);
     };
 
     console.log("enter 'gameController.startGame()' to begin!");
@@ -67,7 +96,6 @@ const gameController = (function createGame () {
 
 
     return {
-        turn,
         startGame,
     }
 })();
